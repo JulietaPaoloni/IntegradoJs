@@ -3,7 +3,7 @@ import { handleRenderList } from "../views/store";
 import { categoriaActiva } from "../../main";
 
 const handleFilterProductsByCategory = (categoryIn) => {
-    const products = handleGetProductLocalStorage() || []; // Asegúrate de que sea un array
+    const products = handleGetProductLocalStorage();
     switch (categoryIn) {
         case categoriaActiva:
         case "Todo":
@@ -16,34 +16,28 @@ const handleFilterProductsByCategory = (categoryIn) => {
             handleRenderList(result);
             break;
         case "mayorPrecio":
-            const resultPreciMayor = [...products].sort((a, b) => b.precio - a.precio);
+            const resultPreciMayor = products.sort((a, b) => b.precio - a.precio);
             handleRenderList(resultPreciMayor);
             break;
         case "menorPrecio":
-            const resultPreciMenor = [...products].sort((a, b) => a.precio - b.precio);
+            const resultPreciMenor = products.sort((a, b) => a.precio - b.precio);
             handleRenderList(resultPreciMenor);
             break;
         default:
-            console.warn(`Categoría no reconocida: ${categoryIn}`);
-            break;
+            break; // Manejo para cualquier caso no reconocido
     }
 };
 
 // Render de la vista categorías
 export const renderCategories = () => {
     const ulList = document.getElementById("listFilter");
-    if (!ulList) {
-        console.error("Elemento 'listFilter' no encontrado.");
-        return;
-    }
-
     ulList.innerHTML = `
-        <li id="Todo">Todos los productos</li>
-        <li id="Hamburguesas">Hamburguesas</li>
-        <li id="Papas">Papas</li>
-        <li id="Gaseosas">Gaseosas</li>
-        <li id="mayorPrecio">Mayor Precio</li>
-        <li id="menorPrecio">Menor Precio</li>
+    <li id="Todo">Todos los productos</li>
+    <li id="Hamburguesas">Hamburguesas</li>
+    <li id="Papas">Papas</li>
+    <li id="Gaseosas">Gaseosas</li>
+    <li id="mayorPrecio">Mayor Precio</li>
+    <li id="menorPrecio">Menor Precio</li>
     `;
 
     const liElements = ulList.querySelectorAll("li");
@@ -62,4 +56,3 @@ export const renderCategories = () => {
         });
     });
 };
-

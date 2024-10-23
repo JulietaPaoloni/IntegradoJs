@@ -7,6 +7,7 @@ import { productoActivo } from "../../main";
 import Swal from "sweetalert2";
 
 
+
 export const handleSaveOrModifyElements = () => {
     const nombre = document.getElementById("nombre").value,
         imagen = document.getElementById("img").value,
